@@ -40,9 +40,17 @@ jobs:
             qt: '5.14.2'
           - os: macos-12
             buildname: 'macos (x86_64) / c++, lua tests'
+            buildname: 'macos (x86_64) / c++, lua tests'
             triplet: x64-osx
             compiler: clang_64
             qt: '5.14.2'
+            deploy: 'deploy'
+            run_tests: 'true'
+          - os: macos-14
+            buildname: 'macos (arm64) / c++, lua tests'
+            triplet: arm64-osx
+            compiler: clang_64
+            qt: '5.15.13'
             deploy: 'deploy'
             run_tests: 'true'
           - os: macos-14
@@ -179,7 +187,7 @@ jobs:
         luarocks --lua-dir "${{env.VCPKG_ROOT}}/installed/${{matrix.triplet}}/tools/lua" --lua-version "5.1" LUA_INCDIR="${{env.VCPKG_ROOT}}/installed/${{matrix.triplet}}/include" install YAJL_INCDIR="${{env.VCPKG_ROOT}}/installed/${{matrix.triplet}}/include" YAJL_LIBDIR="${{env.VCPKG_ROOT}}/installed/${{matrix.triplet}}/lib" LUA_INCDIR="${{env.VCPKG_ROOT}}/installed/${{matrix.triplet}}/include" --local lua-yajl
         # for some reason it gets installed in a place where lua-yajl can't find it after, fix that
         mkdir -p /Users/runner/work/Mudlet/Mudlet/3rdparty/vcpkg/packages/yajl_${{matrix.triplet}}/lib/
-        cp "${{env.VCPKG_ROOT}}/installed/${{matrix.triplet}}/lib/libyajl.2.dylib" "${{env.VCPKG_ROOT}}/packages/yajl_${{matrix.triplet}}/lib/libyajl.2.dylib"
+        cp  /Users/runner/work/Mudlet/Mudlet/3rdparty/vcpkg/installed/${{matrix.triplet}}/lib/libyajl.2.dylib /Users/runner/work/Mudlet/Mudlet/3rdparty/vcpkg/packages/yajl_${{matrix.triplet}}/lib/libyajl.2.dylib
 
 
         # Allow stats generation script to see location of lua-yajl
