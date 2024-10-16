@@ -1,6 +1,7 @@
 #!/bin/bash
 
 set -e
+set -x
 
 sign_and_notarize () {
 

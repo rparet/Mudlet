@@ -1,14 +1,8 @@
 #!/bin/bash
 
-<<<<<<< HEAD
-if { [ -n "$GITHUB_REPOSITORY" ] && [ "${GITHUB_REPOSITORY}" != "Mudlet/Mudlet" ]; } then
-  exit 0
-fi
-=======
 # if { [ -n "$GITHUB_REPOSITORY" ] && [ "${GITHUB_REPOSITORY}" != "Mudlet/Mudlet" ]; } then
 #   exit 0
 # fi
->>>>>>> c6bdb9c2 (Improve: MacOS arm64 builds)
 
 if [ "${RUNNER_OS}" = "Linux" ]; then
   echo Deploy on Linux.
