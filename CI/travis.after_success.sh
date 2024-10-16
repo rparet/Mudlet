@@ -1,10 +1,8 @@
 #!/bin/bash
 
-set -x
-
-if { [ -n "$GITHUB_REPOSITORY" ] && [ "${GITHUB_REPOSITORY}" != "Mudlet/Mudlet" ]; } then
-  exit 0
-fi
+# if { [ -n "$GITHUB_REPOSITORY" ] && [ "${GITHUB_REPOSITORY}" != "Mudlet/Mudlet" ]; } then
+#   exit 0
+# fi
 
 if [ "${RUNNER_OS}" = "Linux" ]; then
   echo Deploy on Linux.
