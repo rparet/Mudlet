@@ -168,7 +168,7 @@ jobs:
         echo "QT5_PREFIX=$(brew --prefix qt@5)" >> $GITHUB_ENV
         # both of these needed for the packager / installer on Github
         echo "PATH=/opt/homebrew/opt/qt@5/bin:$PATH" >> $GITHUB_ENV
-        echo "Qt5_DIR=/opt/homebrew/opt/qt@5" >> $GITHUB_ENV
+        
 
 
     - name: restore ccache
