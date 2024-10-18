@@ -39,17 +39,10 @@ jobs:
             gcc_compiler_version: 9
             qt: '5.14.2'
           - os: macos-12
-            buildname: 'macos (x86_64) / c++, lua tests'
+            buildname: 'macos (x86_64) (x86_64) / c++, lua tests'
             triplet: x64-osx
             compiler: clang_64
             qt: '5.14.2'
-            deploy: 'deploy'
-            run_tests: 'true'
-          - os: macos-14
-            buildname: 'macos (arm64) / c++, lua tests'
-            triplet: arm64-osx
-            compiler: clang_64
-            qt: '5.15.13'
             deploy: 'deploy'
             run_tests: 'true'
           - os: macos-14
@@ -73,13 +66,14 @@ jobs:
         fetch-depth: 0
 
     - name: Install Qt
-      # need to install qt5 via homebrew for arm64-osx
+      # need to install qt via homebrew for qt5 on arm64-osx
       if: ${{ !(matrix.triplet == 'arm64-osx' && startsWith(matrix.qt, '5')) }}
       uses: jurplel/install-qt-action@v4
       with:
         version: ${{matrix.qt}}
         dir: ${{runner.workspace}}
         cache: true
+        modules: ${{ startsWith(matrix.qt, '6') && 'qt5compat qtmultimedia' || '' }}
 
     - name: Restore Boost cache
       uses: actions/cache@v4
@@ -196,7 +190,7 @@ jobs:
         echo "LUA_CPATH=$LUA_CPATH" >> $GITHUB_ENV
 
     - name: (macOS) Add additional paths for Qt5 on arm64 (1/1)
-      if: ${{ !(matrix.triplet == 'arm64-osx' && startsWith(matrix.qt, '5')) }}
+      if: ${{ matrix.triplet == 'arm64-osx' && startsWith(matrix.qt, '5') }}
       run: |
         echo "LDFLAGS=-L$(brew --prefix qt@5)/lib" >> $GITHUB_ENV
         echo "CPPFLAGS=-I$(brew --prefix qt@5)/include" >> $GITHUB_ENV
